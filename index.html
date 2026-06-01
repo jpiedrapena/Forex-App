@@ -314,7 +314,7 @@ function genArbitrajeSimple(live){
   const ren=parseFloat(((ben/cap)*100).toFixed(4));
   return {
     topicId:"t5_arbitraje_simple",
-    context:`Datos en tiempo real del mercado de divisas (${live.ratesDate||"hoy"}). Las cotizaciones reflejan el tipo de cambio spot EUR/USD en distintas plazas financieras.`,
+    context:`Son las 9:15 de la mañana en la sala de mercados de un banco de inversión europeo. En las pantallas de Bloomberg parpadean, simultáneamente, las cotizaciones spot del dólar estadounidense en dos plazas financieras: Frankfurt —donde opera el Sistema Europeo de Bancos Centrales— y Nueva York —sede de la Reserva Federal—. Ambas plazas están abiertas al mismo tiempo durante la franja horaria de solapamiento europeo-americano, que concentra cerca del 40% del volumen diario global de divisas (aprox. 2,7 billones de dólares según el BIS Triennial Survey). El operador de divisas detecta una discrepancia entre los tipos cotizados: el EUR/USD no es idéntico en las dos plazas. En un mercado perfectamente eficiente esta diferencia no debería existir —o desaparecería en milisegundos—, pero en este momento la ventana sigue abierta. Datos de mercado a fecha ${live.ratesDate||"hoy"} (fuente: Frankfurter API / BCE).`,
     title:"Arbitraje Simple EUR/USD entre Dos Plazas",
     body:"Un operador de divisas observa las siguientes cotizaciones spot del dólar en dos plazas financieras internacionales:",
     dataRows:[
@@ -357,7 +357,7 @@ function genArbitrajeTriangular(live){
   const ren=parseFloat(((ben/cap)*100).toFixed(4));
   return {
     topicId:"t5_arbitraje_triangular",
-    context:`Cotizaciones en tiempo real del mercado interbancario (${live.ratesDate||"hoy"}). Los tipos cruzados se calculan usando el dólar como moneda vehicular.`,
+    context:`El mercado de divisas interbancario opera de forma descentralizada (OTC) con más de 30 pares de divisas cotizando simultáneamente las 24 horas. Cuando no existe un mercado directo y líquido entre dos divisas, los operadores utilizan el dólar estadounidense como moneda vehicular para calcular el tipo cruzado implícito. En este ejercicio, el departamento de tesorería de un banco europeo detecta, durante la sesión del ${live.ratesDate||"hoy"}, que el tipo de cambio cotizado directamente entre ${c1} y ${c3} difiere del tipo cruzado que se obtiene encadenando las operaciones a través del ${c2}. Esta incoherencia en los precios —aunque pequeña en términos porcentuales— puede generar beneficios sin riesgo si se opera con volúmenes suficientes. En los mercados modernos, los algoritmos de alta frecuencia (HFT) explotan estas ventanas en cuestión de microsegundos, por lo que el ejercicio representa una foto fija del momento en que la oportunidad está abierta.`,
     title:`Arbitraje Triangular ${c1}/${c2}/${c3}`,
     body:"Un banco de inversión observa las siguientes cotizaciones simultáneas en el mercado interbancario:",
     dataRows:[
@@ -401,7 +401,7 @@ function genArbitrajeCrypto(live){
   ]);
   return {
     topicId:"t5_arbitraje_crypto",
-    context:`El fenómeno del "${exc.prem}" describe situaciones en que el Bitcoin cotiza a precios distintos en diferentes exchanges internacionales, generando oportunidades de arbitraje similares a las del mercado de divisas convencional.`,
+    context:`El fenómeno conocido como "${exc.prem}" hace referencia a la prima persistente con la que Bitcoin cotiza en ${exc.e2} respecto a mercados internacionales como ${exc.e1}. A diferencia del mercado de divisas tradicional —donde el arbitraje se ejecuta en milisegundos—, el arbitraje entre exchanges de criptomonedas enfrenta fricciones reales: los controles de capital impiden mover libremente fondos entre jurisdicciones, los tiempos de confirmación en la blockchain pueden superar los 10 minutos, y los requisitos KYC/AML limitan los volúmenes operables. La prima puede mantenerse durante días o semanas precisamente porque estas fricciones impiden el arbitraje perfecto. El episodio más extremo del Kimchi Premium se registró en enero de 2018, cuando Bitcoin cotizaba hasta un 50% más caro en Corea del Sur que en Occidente, coincidiendo con restricciones gubernamentales a las cuentas bancarias de los exchanges. En este ejercicio, un inversor europeo observa una prima del ${(prem*100).toFixed(2)}% entre ${exc.e1} y ${exc.e2} y evalúa si es posible y rentable explotarla.`,
     title:`Arbitraje con Bitcoin: ${exc.prem}`,
     body:`Un inversor europeo observa las siguientes cotizaciones del Bitcoin:`,
     dataRows:[
@@ -438,7 +438,7 @@ function genPCI(live){
   const rdU=parseFloat((cap/eu*(1+fU)*fwd-cap).toFixed(2));
   return {
     topicId:"t5_pci",
-    context:`La PCI garantiza la neutralidad entre depósitos en distintas divisas cuando se usa cobertura forward. Es la condición de no-arbitraje fundamental del mercado de divisas.`,
+    context:`Un gestor de renta fija en una gestora de activos con sede en Fráncfort debe decidir cómo invertir ${fmtK(cap)} € de liquidez durante los próximos ${pl} meses. Tiene dos opciones: mantener el capital en un depósito en euros al ${rE}% anual, o convertirlo a dólares, invertirlo al ${rU}% anual en EE.UU. y asegurar el tipo de cambio de retorno mediante un contrato forward. La segunda estrategia, conocida como carry trade cubierto, elimina el riesgo cambiario y permite comparar rentabilidades en términos homogéneos. La Paridad Cubierta de Intereses (PCI) establece que, en equilibrio, ambas alternativas deben ofrecer el mismo rendimiento: si no fuera así, los operadores explotarían el diferencial hasta eliminar la discrepancia. Esta condición de no-arbitraje es uno de los pilares del mercado de divisas y determina el tipo forward de equilibrio. El BCE fija actualmente los tipos de referencia en la Eurozona en el ${rE}%, mientras la Fed mantiene los suyos en el ${rU}%.`,
     title:`Paridad Cubierta de Intereses EUR/USD (${pl} meses)`,
     body:`Un gestor de activos europeo evalúa si es más rentable mantener un depósito en euros o en dólares con cobertura forward durante ${pl} meses.`,
     dataRows:[
@@ -472,7 +472,7 @@ function genPDI(live){
   const cap=choose([100000,500000]);
   return {
     topicId:"t5_pdi",
-    context:`La PDI determina la cotización actual del tipo de cambio a partir de las expectativas sobre su evolución futura. Es la condición de equilibrio fundamental del mercado de divisas sin cobertura.`,
+    context:`La Paridad Descubierta de Intereses (PDI) es la condición de equilibrio del mercado de divisas cuando los inversores no utilizan cobertura forward y asumen el riesgo cambiario. Actualmente, el diferencial de tipos de interés entre EE.UU. y la Eurozona es de ${diff.toFixed(2)} puntos porcentuales a favor del dólar (R$ = ${rU}% frente a R€ = ${rE}%). En principio, esto hace atractivo invertir en dólares —una lógica que subyace al carry trade—. Sin embargo, la PDI establece que este diferencial debería verse compensado exactamente por una depreciación esperada del dólar: si el mercado anticipa que el $ se depreciará un ${diff.toFixed(2)}%, la rentabilidad ajustada por riesgo cambiario es idéntica en ambas divisas. En la práctica, la PDI falla sistemáticamente a corto plazo —el denominado "forward premium puzzle"—, lo que explica la popularidad del carry trade como estrategia especulativa. Un inversor europeo evalúa si el diferencial de tipos justifica asumir riesgo cambiario apostando por el dólar.`,
     title:"Paridad Descubierta de Intereses y Tipo de Cambio Esperado",
     body:`Un inversor europeo analiza la condición de PDI entre el euro y el dólar.`,
     dataRows:[
@@ -506,7 +506,7 @@ function genPoliticaMonetaria(live){
   const rF=rand(4.0,5.5,2);
   return {
     topicId:"t6_corto",
-    context:`El BCE ajusta sus tipos de interés, afectando a la oferta monetaria y al tipo de cambio del euro. A corto plazo los precios son rígidos (P fijo), por lo que la política monetaria opera a través de los tipos de interés.`,
+    context:`El Consejo de Gobierno del BCE acaba de anunciar una reducción de su tipo de interés de referencia del ${r0}% al ${r1}%, argumentando que la inflación de la Eurozona ha convergido al objetivo del 2% y que la actividad económica necesita estímulo. La Reserva Federal estadounidense, en cambio, mantiene sus tipos en el ${rF}% ante la persistencia de presiones inflacionistas en EE.UU. Este diferencial creciente entre la política monetaria del BCE y la Fed —un fenómeno conocido como divergencia de ciclos monetarios— tiene consecuencias directas sobre el tipo de cambio EUR/USD. A corto plazo, con precios rígidos (supuesto del modelo de Dornbusch), el ajuste recae íntegramente sobre el tipo de cambio nominal. El mecanismo de transmisión opera a través de la Paridad Descubierta de Intereses: si R€ baja y R$ permanece constante, los depósitos en euros resultan menos atractivos, los inversores venden euros para comprar dólares, y el euro se deprecia hasta que se restaura el equilibrio. A largo plazo, el efecto puede amplificarse —overshooting— o moderarse según las expectativas de inflación y los fundamentos macroeconómicos.`,
     title:"Efecto de un Cambio en la Política Monetaria del BCE sobre el EUR/USD",
     body:`El BCE anuncia una reducción de su tipo de interés de referencia. Analice el impacto sobre el tipo de cambio EUR/USD a corto plazo.`,
     dataRows:[
@@ -541,7 +541,7 @@ function genPPA(live){
   const Eppa=parseFloat((eu*Math.pow((1+iU/100)/(1+iE/100),anos)).toFixed(4));
   return {
     topicId:"t6_ppa",
-    context:`La PPA relaciona los tipos de cambio con los diferenciales de inflación entre países. Es la principal teoría del tipo de cambio a largo plazo y la base del modelo monetario del tipo de cambio.`,
+    context:`La Paridad del Poder Adquisitivo (PPA) es la teoría dominante del tipo de cambio a largo plazo: establece que el poder de compra de una unidad monetaria debe ser equivalente en todos los países una vez convertida al tipo de cambio vigente. En su versión relativa —la más útil empíricamente—, predice que el tipo de cambio varía proporcionalmente al diferencial de inflación entre países. En este escenario, la Eurozona registra una inflación esperada del ${iE}% anual, mientras que en EE.UU. se proyecta un ${iU}% anual. Este diferencial de ${diff.toFixed(1)} puntos porcentuales sugiere que, según la PPA, el dólar debería ${iU>iE?"depreciarse":"apreciarse"} frente al euro a lo largo de los próximos ${anos} año${anos>1?"s":""}. La PPA funciona razonablemente bien en horizontes de 5-10 años, pero falla sistemáticamente a corto plazo debido a los bienes no comerciables, las barreras arancelarias y la predominancia de factores financieros en la determinación del tipo de cambio (Efecto Balassa-Samuelson, índice Big Mac de The Economist). Un analista de divisas de un banco de inversión utiliza la PPA para construir su previsión de largo plazo del EUR/USD.`,
     title:"PPA Relativa y Predicción del Tipo de Cambio EUR/USD",
     body:`Utilice la PPA relativa para predecir la evolución del tipo de cambio EUR/USD a partir de los diferenciales de inflación.`,
     dataRows:[
@@ -578,7 +578,7 @@ function genTipoCambioReal(live){
   const q2=parseFloat((eu2*PU2/PE2).toFixed(4));
   return {
     topicId:"t6_tipo_real",
-    context:`El tipo de cambio real (TCR) mide la competitividad exterior de una economía, corrigiendo el tipo nominal por el diferencial de precios. Es variable clave para el análisis de la balanza por cuenta corriente.`,
+    context:`El tipo de cambio nominal entre el euro y el dólar se sitúa actualmente en ${fmtN(eu,4)} €/$. Sin embargo, el tipo de cambio nominal por sí solo no dice nada sobre la competitividad real de las exportaciones europeas: lo que importa es cuántos bienes europeos hay que entregar a cambio de bienes americanos, es decir, el tipo de cambio real (TCR). El TCR corrige el tipo nominal por el diferencial de niveles de precios entre los dos países: si los precios en EE.UU. suben más deprisa que en la Eurozona —o si el euro se aprecia nominalmente—, los productos europeos se encarecen en términos relativos y la competitividad exterior se deteriora. Este mecanismo es clave para el análisis de la balanza por cuenta corriente: una apreciación real del euro presiona a la baja las exportaciones y estimula las importaciones, deteriorando el saldo comercial. Con una inflación media del ${iE}% en la Eurozona frente al ${iU}% en EE.UU. durante los últimos ${a} años, y una variación nominal del tipo de cambio del ${(dE*100).toFixed(2)}%, el economista del BCE analiza si la Eurozona ha ganado o perdido competitividad en términos reales.`,
     title:"Tipo de Cambio Real EUR/USD y Competitividad de la Eurozona",
     body:`Analice la evolución del tipo de cambio real entre la Eurozona y EE.UU. utilizando índices de precios oficiales.`,
     dataRows:[
