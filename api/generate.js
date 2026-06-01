@@ -1,5 +1,5 @@
 export default async function handler(req, res) {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Origin", "https://forex-app-sable.vercel.app");
   res.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   res.setHeader("Access-Control-Allow-Headers", "Content-Type");
 
@@ -8,6 +8,7 @@ export default async function handler(req, res) {
 
   const { prompt } = req.body || {};
   if (!prompt) return res.status(400).json({ error: "Falta el campo prompt" });
+  if (typeof prompt !== "string" || prompt.length > 8000) return res.status(400).json({ error: "Prompt demasiado largo" });
 
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) return res.status(500).json({ error: "API key no configurada en el servidor" });
