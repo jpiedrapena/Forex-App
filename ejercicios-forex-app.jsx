@@ -19,7 +19,7 @@ const css = `
   .topic-btn:hover { background:var(--card); color:var(--text); }
   .topic-btn.active { background:var(--tag-bg); border-color:var(--accent); color:var(--text); }
   .topic-num { font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:var(--accent2); display:block; margin-bottom:2px; }
-  .main { padding:2.5rem 3rem; max-width:900px; }
+  .main { padding:2.5rem 3rem; width:100%; min-width:0; }
   .page-header { margin-bottom:2rem; padding-bottom:1.5rem; border-bottom:1px solid var(--border); }
   .page-header h1 { font-family:'Playfair Display',serif; font-size:2rem; color:var(--text); letter-spacing:-0.5px; }
   .page-header p { color:var(--muted); font-size:0.9rem; margin-top:0.25rem; font-style:italic; }
