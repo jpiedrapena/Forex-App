@@ -1042,7 +1042,7 @@ FORMATO DE RESPUESTA: Responde UNICAMENTE con el siguiente formato XML (sin text
     setError(null);
     setResult(null);
     try {
-      const response = await fetch("/api/generate", {
+      const response = await fetch("https://forex-app-sable.vercel.app/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ prompt: buildPrompt() })
