@@ -6,7 +6,7 @@ Aplicación web para generar ejercicios prácticos de mercados de divisas y fina
 
 Abre `index.html` directamente en el navegador, o accede a la versión en línea:
 
-**[→ Abrir aplicación](https://TU_USUARIO.github.io/TU_REPOSITORIO)**
+**[→ Abrir aplicación](https://jpiedrapena.github.io/Forex-App/)**
 
 ## Ejercicios disponibles
 
